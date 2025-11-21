@@ -46,7 +46,7 @@ Pack die App hinter einen Prozessmanager (systemd, supervisord) oder nutze einen
       -v zdeg-prompts:/app/data \
       zdeg:latest
     ```
-3. Alternativ `docker compose up -d` nutzen – `compose.yaml` publisht Port 8000 und hängt das Volume automatisch ein.
+3. Alternativ `docker compose up -d` nutzen – `compose.yaml` publisht standardmäßig Port 18080→8000 (per `ZDEG_HOST_PORT` variabel) und hängt das Volume automatisch ein.
 
 Tipp: Kombiniere den Container mit einem Reverse Proxy (Nginx/Caddy/Traefik) für TLS-Zertifikate und betreibe alles via `systemd` oder Watchtower für Auto-Updates.
 

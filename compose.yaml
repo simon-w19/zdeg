@@ -3,7 +3,7 @@ services:
     build: .
     container_name: zdeg-app
     ports:
-      - "8000:8000"
+      - "${ZDEG_HOST_PORT:-18080}:8000"
     volumes:
       - prompts-data:/app/data
     environment:
