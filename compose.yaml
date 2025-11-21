@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    container_name: zdeg-app
+    ports:
+      - "8000:8000"
+    volumes:
+      - prompts-data:/app/data
+    environment:
+      - UVICORN_HOST=0.0.0.0
+      - UVICORN_PORT=8000
+    restart: unless-stopped
+
+volumes:
+  prompts-data:
+    name: zdeg-prompts

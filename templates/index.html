@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zwei Doofe, ein Gedanke</title>
+    <link rel="stylesheet" href="{{ request.url_for('static', path='style.css') }}">
+</head>
+<body data-timer="{{ timer_seconds }}" data-prompt-count="{{ prompt_pool_size }}">
+    <div class="app-shell">
+        <header>
+            <h1>Zwei Doofe, ein Gedanke</h1>
+            <p>Lege Teams an, ziehe Fragen und tracke direkt eure Punkte.</p>
+        </header>
+
+        <section class="team-setup">
+            <div class="team-form-wrapper">
+                <h2>Teams erstellen</h2>
+                <form id="teamForm" class="team-form">
+                    <input id="teamName" name="teamName" type="text" placeholder="Teamname" maxlength="40" required>
+                    <button type="submit" class="secondary">Hinzufügen</button>
+                </form>
+                <p class="hint">Beliebig viele Teams möglich. Die Reihenfolge bestimmt, wer die nächste Runde spielt.</p>
+            </div>
+            <div class="team-list-wrapper">
+                <h3>Scoreboard</h3>
+                <ul id="teamList" class="team-list">
+                    <li class="team-empty">Noch keine Teams angelegt.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="prompt-card">
+            <p class="prompt-label">Aktuelle Frage</p>
+            <p id="prompt" class="prompt-text">Drücke auf "Jetzt los", um die erste Frage zu ziehen.</p>
+        </section>
+
+        <section class="round-meta">
+            <div class="active-team">
+                <span class="badge">Aktives Team</span>
+                <p id="activeTeamName">Noch keine Teams</p>
+            </div>
+            <div class="prompt-info">
+                <span class="badge">Fragen im Pool</span>
+                <p><span id="promptCount">{{ prompt_pool_size }}</span> Prompts verfügbar</p>
+            </div>
+        </section>
+
+        <section class="controls">
+            <button id="promptButton" class="primary">Jetzt los</button>
+            <div class="timer-display">
+                <span class="timer-label">Countdown</span>
+                <span id="timer" class="timer-value">--</span>
+            </div>
+        </section>
+
+        <section class="result-controls">
+            <button id="successButton" class="success" disabled>Runde erfolgreich</button>
+            <button id="failButton" class="danger" disabled>Keine Übereinstimmung</button>
+        </section>
+
+        <section class="status">
+            <p id="statusText">Bereit für Runde eins! Leg zuerst ein Team an.</p>
+        </section>
+
+        <section class="custom-prompts">
+            <h2>Eigene Frage speichern</h2>
+            <form id="addPromptForm" class="prompt-form">
+                <textarea id="newPrompt" name="prompt" rows="2" placeholder="z.B. Eine Süßigkeit, die es nur in deiner Kindheit gab" maxlength="160" required></textarea>
+                <button type="submit" class="secondary">Zum Fragenpool hinzufügen</button>
+            </form>
+            <p id="promptSaveStatus" class="hint">Eigene Prompts bleiben auf diesem Server gespeichert.</p>
+        </section>
+
+        <section class="rules">
+            <h2>So funktioniert's</h2>
+            <ol>
+                <li>Teams anlegen und Reihenfolge festlegen.</li>
+                <li>Frage anzeigen, Timer startet automatisch.</li>
+                <li>Nach Ablauf von {{ timer_seconds }} Sekunden bewertet ihr die Runde.</li>
+                <li>"Runde erfolgreich" vergibt einen Punkt. Danach ist das nächste Team dran.</li>
+            </ol>
+        </section>
+    </div>
+
+    <script src="{{ request.url_for('static', path='app.js') }}" defer></script>
+</body>
+</html>
